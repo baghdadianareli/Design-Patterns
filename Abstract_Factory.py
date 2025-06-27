@@ -1,6 +1,6 @@
 import abc
 
-# 1. --- Abstract Products ---
+# Abstract Products
 
 class Light(abc.ABC):
     @abc.abstractmethod
@@ -17,7 +17,7 @@ class Thermostat(abc.ABC):
     def get_description(self):
         """Returns thermostat's description"""
 
-# 2. --- Concrete Products ---
+# 2 Concrete Products
 
 # Google family components
 class Google_Light(Light):
@@ -46,7 +46,7 @@ class Amazon_Thermostat(Thermostat):
         return "Amazon Smart Thermostat"
 
 
-# 3. --- Abstract Factory ---
+# 3 Abstract Factory
 
 class SmartHomeFactory(abc.ABC):
     @abc.abstractmethod
@@ -64,7 +64,7 @@ class SmartHomeFactory(abc.ABC):
         """Factory method to create thermostat device"""
         pass
 
-# 4. --- Concrete Factories ---
+# Concrete Factories
 
 class GoogleFactory(SmartHomeFactory):
     def create_light(self):
@@ -87,23 +87,7 @@ class AmazonFactory(SmartHomeFactory):
         return Amazon_Thermostat()
 
 
-# 5. --- Client Function ---
-
-def run(factory: SmartHomeFactory):
-    """Simulates setting up smart home devices from a specific brand."""
-    brand_name = factory.__class__.__name__.replace('Factory', '')
-    print(f"\n--- Setting up {brand_name} Smart Home Devices ---")
-
-    light = factory.create_light()
-    speaker = factory.create_speaker()
-    thermostat = factory.create_thermostat()
-
-    print(f"  Light:       {light.get_description()}")
-    print(f"  Speaker:     {speaker.get_description()}")
-    print(f"  Thermostat:  {thermostat.get_description()}")
-    print("-------------------------------------------------")
-
-# 6. --- Client Code ---
+# Client Code
 
 if __name__ == "__main__":
     print("Welcome to the Smart Home Setup Configurator!")
@@ -123,6 +107,17 @@ if __name__ == "__main__":
         print("Invalid choice. Please select a valid brand.")
         exit()
 
-    run(chosen_factory)
+    """Simulates setting up smart home devices from a specific brand."""
+    brand_name = chosen_factory.__class__.__name__.replace('Factory', '')
+    print(f"\n--- Setting up {brand_name} Smart Home Devices ---")
+
+    light = chosen_factory.create_light()
+    speaker = chosen_factory.create_speaker()
+    thermostat = chosen_factory.create_thermostat()
+
+    print(f"  Light:       {light.get_description()}")
+    print(f"  Speaker:     {speaker.get_description()}")
+    print(f"  Thermostat:  {thermostat.get_description()}")
+    print("-------------------------------------------------")
 
     print("\nSmart home device setup simulation complete.")
